@@ -1,4 +1,4 @@
-# simple-pdfmerger
+# Simple-pdfmerger
 
 Integrates filedialog for easy usage.  
 
