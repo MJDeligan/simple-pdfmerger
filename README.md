@@ -2,7 +2,8 @@
 
 Integrates filedialog for easy usage.  
 
-Supports setting output directory as well as output filenames.
+Supports setting output directory as well as output filenames.  
+
 
 > python pdfmerge.py -h  
 
