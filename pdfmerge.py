@@ -1,3 +1,4 @@
+#! python3
 from tkinter.filedialog import askopenfilenames, askdirectory
 from PyPDF2 import PdfFileMerger
 import os
@@ -12,8 +13,8 @@ if __name__ == "__main__":
         "--nogui",
         action="store_true",
         dest="nogui",
-        help="Sets the program to open a file/directory dialog to select\
-         files/directories instead of passing them as command line args"
+        help="Sets the program to take pdf-files and target directory as\
+             command lines args instead of opening filedialog"
     )
     parser.add_argument(
         "-out",
@@ -22,7 +23,7 @@ if __name__ == "__main__":
         dest="out",
         const="merged.pdf",
         default="merged.pdf",
-        help='Name of the outputfile. Defaults to "merged.pdf"'
+        help='Name of the outputfile. Default: "merged.pdf"'
     )
     parser.add_argument(
         "-dir",
@@ -31,12 +32,13 @@ if __name__ == "__main__":
         dest="dir",
         const=desktop_path,
         default=desktop_path,
-        help="The directory to store the file in"
+        help="The directory to store the file in.\
+             Only necessary when --nogui is used. Default: desktop"
     )
     parser.add_argument(
         "-pdfs",
         nargs="*",
-        help="The pdfs you want to merge. Omitted when --gui is used."
+        help="The pdfs you want to merge. Only necessary when --nogui is used."
     )
     args = parser.parse_args()
 
@@ -48,9 +50,12 @@ if __name__ == "__main__":
         dir = args.dir
     else:
         # get file selection and filter non pdfs
-        os.system("echo Select pdf-files to merge. Order might have to be set manually.")
-        files = [f for f in askopenfilenames() if f.endswith('.pdf')]
-        dir = askdirectory()
+        title = (
+            "Select Files to merge"
+            " (File order might be different from selection order)"
+        )
+        files = [f for f in askopenfilenames(title=title) if f.endswith('.pdf')]
+        dir = askdirectory(title="Choose target directory")
 
     if not files:
         os.system("echo No valid pdf-files were provided for merging")
