@@ -54,7 +54,8 @@ if __name__ == "__main__":
             "Select Files to merge"
             " (File order might be different from selection order)"
         )
-        files = [f for f in askopenfilenames(title=title) if f.endswith('.pdf')]
+        unfiltered_files = askopenfilenames(title=title)
+        files = [f for f in unfiltered_files if f.endswith('.pdf')]
         dir = askdirectory(title="Choose target directory")
 
     if not files:
